@@ -31,7 +31,7 @@ CREATE TABLE `container_material` (
   `id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `material_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `material` (
   `comment` text,
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now())
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,7 @@ CREATE TABLE `material_verif` (
   `id_material_v` int NOT NULL,
   `container_id` int NOT NULL,
   `verif` enum('accept','unaccept') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ CREATE TABLE `material_verif` (
 CREATE TABLE `request_roadmap` (
   `id` int NOT NULL,
   `message` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,7 @@ CREATE TABLE `roadmap` (
   `comment` text,
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now())
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE `roadmap_verif` (
   `id` int NOT NULL,
   `roadmap_id` int NOT NULL,
   `verif` enum('accept','unaccept') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `level` enum('project_manager','mapper','research') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Indexes for dumped tables

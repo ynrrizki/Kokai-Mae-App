@@ -52,8 +52,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
-                  <Component id="menuPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="418" max="32767" attributes="0"/>
+                  <Component id="menuButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace pref="325" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -61,16 +63,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                  <Component id="menuPanel" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButton1" max="32767" attributes="0"/>
+                      <Component id="menuButton" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="251" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="menuPanel">
+        <Container class="javax.swing.JPanel" name="menuButton">
           <Events>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuPanelMouseExited"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuButtonMouseExited"/>
           </Events>
 
           <Layout>
@@ -109,6 +114,18 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/assets/menu.png"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

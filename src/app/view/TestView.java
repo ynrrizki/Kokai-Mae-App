@@ -30,8 +30,9 @@ public class TestView extends javax.swing.JFrame {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        menuPanel = new javax.swing.JPanel();
+        menuButton = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Testing View");
@@ -44,9 +45,9 @@ public class TestView extends javax.swing.JFrame {
             }
         });
 
-        menuPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                menuPanelMouseExited(evt);
+                menuButtonMouseExited(evt);
             }
         });
 
@@ -58,22 +59,27 @@ public class TestView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
-        menuPanel.setLayout(menuPanelLayout);
-        menuPanelLayout.setHorizontalGroup(
-            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout menuButtonLayout = new javax.swing.GroupLayout(menuButton);
+        menuButton.setLayout(menuButtonLayout);
+        menuButtonLayout.setHorizontalGroup(
+            menuButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuButtonLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
-        menuPanelLayout.setVerticalGroup(
-            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+        menuButtonLayout.setVerticalGroup(
+            menuButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuButtonLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusPainted(false);
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -81,14 +87,18 @@ public class TestView extends javax.swing.JFrame {
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(138, 138, 138)
-                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(418, Short.MAX_VALUE))
+                .addComponent(menuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(325, Short.MAX_VALUE))
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
-                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
 
@@ -109,18 +119,18 @@ public class TestView extends javax.swing.JFrame {
 
     private void backgroundPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundPanelMouseClicked
         // TODO add your handling code here:
-        menuPanel.setBackground(Color.red);
+        menuButton.setBackground(Color.red);
     }//GEN-LAST:event_backgroundPanelMouseClicked
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         // TODO add your handling code here:
-        menuPanel.setBackground(Color.blue);
+        menuButton.setBackground(Color.blue);
     }//GEN-LAST:event_jLabel1MouseEntered
 
-    private void menuPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPanelMouseExited
+    private void menuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuButtonMouseExited
         // TODO add your handling code here:
-        menuPanel.setBackground(new Color(240,240,240));
-    }//GEN-LAST:event_menuPanelMouseExited
+        menuButton.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_menuButtonMouseExited
 
     /**
      * @param args the command line arguments
@@ -159,7 +169,8 @@ public class TestView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel menuPanel;
+    private javax.swing.JPanel menuButton;
     // End of variables declaration//GEN-END:variables
 }
