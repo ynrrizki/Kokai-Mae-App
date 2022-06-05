@@ -11,6 +11,8 @@ import java.sql.*;
  */
 public class Login extends javax.swing.JFrame {
     Connection con;
+    PrepareStatement pst;
+    ResultSet rs;
     /**
      * Creates new form Login
      */
@@ -29,7 +31,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        uname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -47,9 +49,9 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Username");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        uname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                unameActionPerformed(evt);
             }
         });
 
@@ -92,7 +94,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel1)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                                .addComponent(uname, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                                 .addComponent(Password))
                             .addComponent(jLabel5)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,7 +115,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(uname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -144,12 +146,33 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String Uname = uname.getText();
+        String password = Password.getText();
+        String level = Level.getSelectedItem().toString();
         
+        if (Uname.equals("")||password.equals("")||level.equals("Selected")) {
+            JOptionPane.showMassageDialog(rootPane,"Some Fields Are Empty","Error",1);
+        }else{
+            con = Connection.getConnection();
+            pst = con.prepareStatement("select * from user where username=? and password=?");
+            pst.setString(1,Uname);
+            pst.SetString(2,password);
+            rs = pst.executeQuery();
+            
+            if(rs.next()){
+                String sl = rs.getString();
+                if(option.equalsIgnore("Project_Manager")&& sl.equalsIgnore("project_manager")){
+                    Request request = new Request();
+                    request.setVisible(true);
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void unameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_unameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,7 +218,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton loginButton;
+    private javax.swing.JTextField uname;
     // End of variables declaration//GEN-END:variables
 }
