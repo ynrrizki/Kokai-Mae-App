@@ -1,45 +1,24 @@
 package app.core;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Database {
-    private static final String driverM =   Source.driverM,
-                                db_url  =   Source.db_url,
-                                user    =   Source.user,
-                                pass    =   Source.pass;
+    static Connection con;
     
-    private static Database _instance;
-    
-    private static Connection _conn;
-    public String _query;
-    private Statement _statement;
-    private ResultSet _result;
-    
-    Database() throws SQLException {
-        try {
-            Class.forName(driverM);
-            _conn = DriverManager.getConnection(db_url, user, pass);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+    public static Connection getKoneksi(){
+        if(con == null){
+            try{
+                String url = "jdbc:mysql://localhost/kokai_mae_app";
+                String username = "root";
+                String password = "";
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                con = DriverManager.getConnection(url,username,password);
+                System.out.println("Koneksi Berhasil");
+            }catch(SQLException e){
+                System.out.println("koneksi gagal");
+            }
         }
+        return con;
     }
-    
-    public static Database getInstance() throws SQLException {
-        if(_instance == null) {
-            return _instance = new Database();
-        }
-        return _instance;
-    }
-    
-    public ResultSet query(String query) throws SQLException {
-        this.run();
-        return _result = _statement.executeQuery(query);
-    }
-    
-    public void run() throws SQLException {
-        _statement = _conn.createStatement();
-    }
-    
 }
