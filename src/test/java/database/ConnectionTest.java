@@ -32,8 +32,8 @@ public class ConnectionTest {
     @Test
     void testConnection() {
         String jdbcUrl  = "jdbc:mysql://localhost:3306/login";
-        String username = "yanu";
-        String pass     = "yanusukakopi";
+        String username = "";
+        String pass     = "";
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl, username, pass);
             System.out.println("Sukses mengkoneksikan ke database");
