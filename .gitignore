@@ -23,5 +23,5 @@
 hs_err_pid*
 
 # Database Class
-Kokai-Mae-App/src/main/java/app/coreSource.java
+Kokai-Mae-App/src/main/java/app/core/Source.java
 
