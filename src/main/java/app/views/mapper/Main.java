@@ -26,9 +26,12 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         route = new Route();
         _instance = Database.getInstance();
-        title();
-        showAll("");
-        tabModel = new DefaultTableModel();
+        titleRequest();
+        titleReceive();
+        showReceiveAll("");
+        showRequestAll("");
+        tabRequestModel = new DefaultTableModel();
+        tabReceiveModel = new DefaultTableModel();
     }
 
     /**
@@ -51,7 +54,7 @@ public class Main extends javax.swing.JFrame {
         requestTable = new javax.swing.JTable();
         receivePanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        requestTable1 = new javax.swing.JTable();
+        receiveTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mapper");
@@ -192,7 +195,7 @@ public class Main extends javax.swing.JFrame {
 
         receivePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        requestTable1.setModel(new javax.swing.table.DefaultTableModel(
+        receiveTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -218,7 +221,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(requestTable1);
+        jScrollPane3.setViewportView(receiveTable);
 
         javax.swing.GroupLayout receivePanelLayout = new javax.swing.GroupLayout(receivePanel);
         receivePanel.setLayout(receivePanelLayout);
@@ -339,28 +342,55 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton receiveBtn;
     private javax.swing.JPanel receivePanel;
+    private javax.swing.JTable receiveTable;
     private javax.swing.JButton requestBtn;
     private javax.swing.JPanel requestPanel;
     private javax.swing.JTable requestTable;
-    private javax.swing.JTable requestTable1;
     private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables
     private Route route;
     private Database _instance;
-    private DefaultTableModel tabModel;
-    private JTable table;
+    private DefaultTableModel tabRequestModel;
+    private DefaultTableModel tabReceiveModel;
     
-    public void title() {
+    public void titleRequest() {
         Object[] title = {
             "id", "Message"
         };
-        tabModel = new DefaultTableModel(null, title);
-        requestTable.setModel(tabModel);
+        tabRequestModel = new DefaultTableModel(null, title);
+        requestTable.setModel(tabRequestModel);
     }
     
-    public void showAll(String where) {
-        tabModel.getDataVector().removeAllElements();
-        tabModel.fireTableDataChanged();
+    public void titleReceive() {
+        Object[] title = {
+            "id", "Title", "Verif"
+        };
+        tabReceiveModel = new DefaultTableModel(null, title);
+        receiveTable.setModel(tabReceiveModel);
+    }
+    
+    public void showReceiveAll(String where) {
+        tabReceiveModel.getDataVector().removeAllElements();
+        tabReceiveModel.fireTableDataChanged();
+        var rs = _instance.query("SELECT roadmap.id, roadmap.title, roadmap_verif.verif FROM roadmap INNER JOIN roadmap_verif ON roadmap.id = roadmap_verif.roadmap_id" + where);
+        try {
+            while(rs.next()) {
+                Object data[] = {
+                    rs.getString("id"),
+                    rs.getString("title"),
+                    rs.getString("verif"),
+                };
+                tabReceiveModel.addRow(data);
+            }
+            _instance.closeResultSet();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void showRequestAll(String where) {
+        tabRequestModel.getDataVector().removeAllElements();
+        tabRequestModel.fireTableDataChanged();
         var rs = _instance.query("SELECT * FROM request_roadmap" + where);
         try {
             while(rs.next()) {
@@ -368,7 +398,7 @@ public class Main extends javax.swing.JFrame {
                     rs.getString("id"),
                     rs.getString("message")
                 };
-                tabModel.addRow(data);
+                tabRequestModel.addRow(data);
             }
             _instance.closeResultSet();
         } catch (SQLException ex) {

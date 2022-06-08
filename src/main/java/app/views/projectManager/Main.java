@@ -26,8 +26,10 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         route = new Route();
         _instance = Database.getInstance();
-        title();
-        showAll("");
+        titleRequest();
+        titleReceive();
+        showRequestAll("");
+        showReceiveAll("");
         updateBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
     }
@@ -62,7 +64,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
         receiveBox = new javax.swing.JComboBox<>();
-        submitBtn = new javax.swing.JButton();
+        receiveUpdateBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         receiveTable = new javax.swing.JTable();
         progressPanel = new javax.swing.JPanel();
@@ -294,9 +296,14 @@ public class Main extends javax.swing.JFrame {
 
         receiveBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "unaccept", "accept" }));
 
-        submitBtn.setBackground(new java.awt.Color(255, 152, 0));
-        submitBtn.setForeground(new java.awt.Color(255, 255, 255));
-        submitBtn.setText("Submit");
+        receiveUpdateBtn.setBackground(new java.awt.Color(255, 152, 0));
+        receiveUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        receiveUpdateBtn.setText("Receive");
+        receiveUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receiveUpdateBtnActionPerformed(evt);
+            }
+        });
 
         receiveTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -317,6 +324,11 @@ public class Main extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        receiveTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                receiveTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(receiveTable);
 
         javax.swing.GroupLayout receivePanelLayout = new javax.swing.GroupLayout(receivePanel);
@@ -333,7 +345,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(receiveBox, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(receiveUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3))
                 .addContainerGap(149, Short.MAX_VALUE))
         );
@@ -349,7 +361,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receivePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(receiveBox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(receiveUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(74, 74, 74))
         );
 
@@ -435,8 +447,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_requestTableMouseClicked
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        _instance.queryUpdate("UPDATE request_roadmap SET message = '"+requestField.getText()+"' WHERE id = '"+tabModel.getValueAt(requestTable.getSelectedRow(),0)+"'");
-        showAll("");
+        _instance.queryUpdate("UPDATE request_roadmap SET message = '"+requestField.getText()+"' WHERE id = '"+tabRequestModel.getValueAt(requestTable.getSelectedRow(),0)+"'");
+        showRequestAll("");
         JOptionPane.showMessageDialog(null, "Update Berhasil");
         reset();
     }//GEN-LAST:event_updateBtnActionPerformed
@@ -444,10 +456,22 @@ public class Main extends javax.swing.JFrame {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int jawab;
         if((jawab = JOptionPane.showConfirmDialog(null, "Ingin menghapus data?","konfirmasi", JOptionPane.YES_NO_OPTION)) == 0) {
-            _instance.queryUpdate("DELETE FROM request_roadmap WHERE id = '"+tabModel.getValueAt(requestTable.getSelectedRow(),0)+"'");
-            showAll("");
+            _instance.queryUpdate("DELETE FROM request_roadmap WHERE id = '"+tabRequestModel.getValueAt(requestTable.getSelectedRow(),0)+"'");
+            showRequestAll("");
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void receiveUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveUpdateBtnActionPerformed
+        _instance.queryUpdate("UPDATE roadmap_verif SET verif = '"+receiveBox.getSelectedItem()+"' WHERE id = '"+tabReceiveModel.getValueAt(receiveTable.getSelectedRow(), 0)+"'");
+        showReceiveAll("");
+        JOptionPane.showMessageDialog(null, "Update Berhasil");
+        reset();
+    }//GEN-LAST:event_receiveUpdateBtnActionPerformed
+
+    private void receiveTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receiveTableMouseClicked
+        idField.setText(receiveTable.getValueAt(receiveTable.getSelectedRow(), 0).toString());
+        receiveBox.setSelectedItem(receiveTable.getValueAt(receiveTable.getSelectedRow(), 5));
+    }//GEN-LAST:event_receiveTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -504,6 +528,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton receiveBtn;
     private javax.swing.JPanel receivePanel;
     private javax.swing.JTable receiveTable;
+    private javax.swing.JButton receiveUpdateBtn;
     private javax.swing.JButton requestBtn;
     private javax.swing.JTextArea requestField;
     private javax.swing.JPanel requestPanel;
@@ -511,24 +536,31 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton resetBtn;
     private javax.swing.JButton sendBtn;
     private javax.swing.JPanel sidebarPanel;
-    private javax.swing.JButton submitBtn;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
     private Route route;
     private Database _instance;
-    private DefaultTableModel tabModel;
+    private DefaultTableModel tabRequestModel,tabReceiveModel;
     
-    public void title() {
+    public void titleRequest() {
         Object[] title = {
             "id", "Message"
         };
-        tabModel = new DefaultTableModel(null, title);
-        requestTable.setModel(tabModel);
+        tabRequestModel = new DefaultTableModel(null, title);
+        requestTable.setModel(tabRequestModel);
     }
     
-    public void showAll(String where) {
-        tabModel.getDataVector().removeAllElements();
-        tabModel.fireTableDataChanged();
+    public void titleReceive() {
+        Object[] title = {
+            "id", "Title", "File", "Bab", "Comment", "Verif"
+        };
+        tabReceiveModel = new DefaultTableModel(null, title);
+        receiveTable.setModel(tabReceiveModel);
+    }
+    
+    public void showRequestAll(String where) {
+        tabRequestModel.getDataVector().removeAllElements();
+        tabRequestModel.fireTableDataChanged();
         var rs = _instance.query("SELECT * FROM request_roadmap" + where);
         try {
             while(rs.next()) {
@@ -536,10 +568,32 @@ public class Main extends javax.swing.JFrame {
                     rs.getString("id"),
                     rs.getString("message")
                 };
-                tabModel.addRow(data);
+                tabRequestModel.addRow(data);
             }
             _instance.closeResultSet();
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void showReceiveAll(String where) {
+        tabReceiveModel.getDataVector().removeAllElements();
+        tabReceiveModel.fireTableDataChanged();
+        var rs = _instance.query("SELECT roadmap.id, roadmap.title, roadmap.file, roadmap.bab, roadmap.comment, roadmap_verif.verif FROM roadmap INNER JOIN roadmap_verif ON roadmap.id = roadmap_verif.roadmap_id" + where);
+        try {
+            while(rs.next()) {
+                Object data[] = {
+                    rs.getString("id"),
+                    rs.getString("title"),
+                    rs.getString("file"),
+                    rs.getString("bab"),
+                    rs.getString("comment"),
+                    rs.getString("verif"),
+                };
+                tabReceiveModel.addRow(data);
+            }
+            _instance.closeResultSet();
+        } catch(SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -554,7 +608,7 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Isi datanya dulu dong!");
         } else {
             _instance.queryUpdate("INSERT INTO request_roadmap (message) VALUES ('"+request+"')");
-            showAll("");
+            showRequestAll("");
             JOptionPane.showMessageDialog(null, "Data berhasil dikirim");
             reset();
             _instance.closeStatement();
