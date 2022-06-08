@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: database.ConnectionPoolTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.096 s - in database.ConnectionPoolTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.348 s <<< FAILURE! - in database.ConnectionPoolTest
+testUtil  Time elapsed: 0.132 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.ConnectionPoolTest.testUtil(ConnectionPoolTest.java:46)
+
+testHikariCP  Time elapsed: 0.108 s  <<< ERROR!
+java.lang.IllegalArgumentException: dataSource or dataSourceClassName or jdbcUrl is required.
+	at database.ConnectionPoolTest.testHikariCP(ConnectionPoolTest.java:36)
+

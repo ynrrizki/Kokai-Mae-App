@@ -1,3 +1,4 @@
 database\ConnectionPoolTest.class
 database\ConnectionTest.class
+database\StatementTest.class
 database\DriverTest.class

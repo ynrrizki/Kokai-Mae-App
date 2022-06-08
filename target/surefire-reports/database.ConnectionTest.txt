@@ -1,4 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: database.ConnectionTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.105 s - in database.ConnectionTest
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.195 s <<< FAILURE! - in database.ConnectionTest
+testConnection  Time elapsed: 2.031 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+	at database.ConnectionTest.testConnection(ConnectionTest.java:41)
+Caused by: java.sql.SQLException: Access denied for user ''@'localhost' (using password: NO)
+	at database.ConnectionTest.testConnection(ConnectionTest.java:38)
+
