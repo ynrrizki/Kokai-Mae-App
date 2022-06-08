@@ -23,6 +23,5 @@
 hs_err_pid*
 
 # Database Class
-src/app/core/Source.java
-/nbproject/private/
-/build/
+src/main/java/app/core/Source.java
+
